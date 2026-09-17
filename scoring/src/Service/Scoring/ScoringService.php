@@ -5,41 +5,38 @@ declare(strict_types=1);
 namespace App\Service\Scoring;
 
 use App\Entity\Client;
-use App\Service\Scoring\Type\Education;
-use App\Service\Scoring\Type\Email;
-use App\Service\Scoring\Type\Phone;
-use App\Service\Scoring\Type\ProcessingConsent;
 use App\Service\Scoring\Type\ScoringRuleInterface;
 
 final class ScoringService
 {
-    /** @var iterable<ScoringRuleInterface> */
-    private iterable $rules;
+    /** @var ScoringRuleInterface[] */
+    private array $rules = [];
 
-
-    public function __construct(
-        Phone             $phone,
-        Email             $email,
-        Education         $education,
-        ProcessingConsent $consent,
-    )
+    /**
+     * @param iterable<ScoringRuleInterface> $rules
+     */
+    public function __construct(iterable $rules = [])
     {
-        $this->rules = [$phone, $email, $education, $consent];
+        foreach ($rules as $rule) {
+            $this->rules[] = $rule;
+        }
     }
 
     /**
-     * @param ScoringRuleInterface $rule
-     *
-     * @return void
+     * Динамически добавить правило.
      */
-    public function setRules(ScoringRuleInterface $rule): void
+    public function addRule(ScoringRuleInterface $rule): void
     {
         $this->rules[] = $rule;
+    }
 
+    public function calculateTotal(Client $client): int
+    {
+        return $this->calculate($client)['total'];
     }
 
     /**
-     * @return array{total: int, details: array}
+     * @return array{total: int, details: array<string, int>}
      */
     public function calculate(Client $client): array
     {
@@ -56,16 +53,5 @@ final class ScoringService
             'total' => $total,
             'details' => $details,
         ];
-    }
-
-
-    /**
-     * @param Client $client
-     *
-     * @return int
-     */
-    public function calculateTotal(Client $client): int
-    {
-        return $this->calculate($client)['total'];
     }
 }
