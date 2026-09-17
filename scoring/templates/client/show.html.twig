@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Клиент #{{ client.id }}{% endblock %}
+
+{% block body %}
+    <h1>Клиент #{{ client.id }}</h1>
+
+    <table>
+        <tr><th>Имя</th><td>{{ client.firstName }}</td></tr>
+        <tr><th>Фамилия</th><td>{{ client.lastName }}</td></tr>
+        <tr><th>Телефон</th><td>{{ client.phone }}</td></tr>
+        <tr><th>Э-почта</th><td>{{ client.email }}</td></tr>
+        <tr><th>Образование</th><td>{{ client.education ? client.education.label() : '—' }}</td></tr>
+        <tr><th>Согласие</th><td>{{ client.consentGiven ? 'Да' : 'Нет' }}</td></tr>
+        <tr><th>Скоринг</th><td><b>{{ client.score ?? '—' }}</b></td></tr>
+        <tr><th>Создан</th><td>{{ client.createdAt|date('d.m.Y H:i') }}</td></tr>
+    </table>
+
+    <p>
+        <a href="{{ path('client_edit', {id: client.id}) }}">Редактировать</a> |
+        <a href="{{ path('client_index') }}">К списку</a>
+    </p>
+{% endblock %}

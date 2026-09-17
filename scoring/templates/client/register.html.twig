@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Регистрация клиента{% endblock %}
+
+{% block body %}
+    <h1>Регистрация клиента</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.firstName) }}
+    {{ form_row(form.lastName) }}
+    {{ form_row(form.phone) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.education) }}
+    {{ form_row(form.consentGiven) }}
+
+    <button type="submit">Зарегистрировать</button>
+    {{ form_end(form) }}
+
+    <p><a href="{{ path('client_index') }}">К списку</a></p>
+{% endblock %}

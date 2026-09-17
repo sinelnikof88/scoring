@@ -1,24 +1,28 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Scoring{% endblock %}</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+        .flash-success { background: #d4edda; color: #155724; padding: .75rem 1rem; border-radius: 4px; margin-bottom: 1rem; }
+        .flash-error   { background: #f8d7da; color: #721c24; padding: .75rem 1rem; border-radius: 4px; margin-bottom: 1rem; }
+        form label { display: block; margin-top: .75rem; font-weight: 600; }
+        form input, form select { display: block; width: 100%; padding: .5rem; margin-top: .25rem; box-sizing: border-box; }
+        form button { margin-top: 1rem; padding: .5rem 1rem; cursor: pointer; }
+        table { border-collapse: collapse; width: 100%; margin-top: 1rem; }
+        th, td { border: 1px solid #ccc; padding: .5rem; text-align: left; }
+        .errors ul { color: #721c24; padding-left: 1rem; }
+    </style>
+</head>
+<body>
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="flash-{{ label }}">{{ message }}</div>
+    {% endfor %}
+{% endfor %}
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-
-        {% set frankenphp_hot_reload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
-        {% if frankenphp_hot_reload %}
-        <meta name="frankenphp-hot-reload:url" content="{{ frankenphp_hot_reload }}">
-        <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
-        <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
-        {% endif %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+{% block body %}{% endblock %}
+</body>
 </html>

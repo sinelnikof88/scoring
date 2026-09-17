@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Список клиентов{% endblock %}
+
+{% block body %}
+    <h1>Список клиентов</h1>
+
+    <p>
+        <a href="{{ path('client_register') }}">Зарегистрировать нового клиента</a>
+    </p>
+
+    {% if pager.nbResults == 0 %}
+        <p>Пока нет ни одного клиента.</p>
+    {% else %}
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>ФИО</th>
+                <th>Телефон</th>
+                <th>Э-почта</th>
+                <th>Образование</th>
+                <th>Скоринг</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for client in pager.currentPageResults %}
+                <tr>
+                    <td>{{ client.id }}</td>
+                    <td>{{ client.firstName }} {{ client.lastName }}</td>
+                    <td>{{ client.phone }}</td>
+                    <td>{{ client.email }}</td>
+                    <td>{{ client.education ? client.education.label() : '—' }}</td>
+                    <td>{{ client.score }}</td>
+                    <td><a href="{{ path('client_show', {id: client.id}) }}">Открыть</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% if pager.haveToPaginate() %}
+            <div style="margin-top: 1rem;">
+                {{ pagerfanta(pager) }}
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}

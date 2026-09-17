@@ -141,6 +141,9 @@
       <path value="$PROJECT_DIR$/scoring/vendor/sebastian/exporter" />
       <path value="$PROJECT_DIR$/scoring/vendor/sebastian/version" />
       <path value="$PROJECT_DIR$/scoring/vendor/masterminds/html5" />
+      <path value="$PROJECT_DIR$/scoring/vendor/pagerfanta/pagerfanta" />
+      <path value="$PROJECT_DIR$/scoring/vendor/symfony/ux-twig-component" />
+      <path value="$PROJECT_DIR$/scoring/vendor/babdev/pagerfanta-bundle" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Редактирование #{{ client.id }}{% endblock %}
+
+{% block body %}
+    <h1>Редактирование клиента #{{ client.id }}</h1>
+
+    {{ form_start(form) }}
+    {{ form_row(form.firstName) }}
+    {{ form_row(form.lastName) }}
+    {{ form_row(form.phone) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.education) }}
+    {{ form_row(form.consentGiven) }}
+
+    <button type="submit">Сохранить</button>
+    {{ form_end(form) }}
+
+    <p>
+        <a href="{{ path('client_show', {id: client.id}) }}">← К карточке</a> |
+        <a href="{{ path('client_index') }}">К списку</a>
+    </p>
+{% endblock %}
