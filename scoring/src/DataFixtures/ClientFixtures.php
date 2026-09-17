@@ -23,15 +23,15 @@ final class ClientFixtures extends Fixture
     private const PHONE_CODES = [
         'megafon' => ['920', '921', '926', '929', '936'],
         'beeline' => ['905', '906', '909', '960', '961'],
-        'mts'     => ['910', '911', '915', '916', '985'],
-        'other'   => ['999', '998', '997', '996', '995'],
+        'mts' => ['910', '911', '915', '916', '985'],
+        'other' => ['999', '998', '997', '996', '995'],
     ];
 
     private const EMAIL_DOMAINS = [
-        'gmail'  => ['gmail.com'],
+        'gmail' => ['gmail.com'],
         'yandex' => ['yandex.ru', 'ya.ru'],
-        'mail'   => ['mail.ru', 'inbox.ru', 'bk.ru'],
-        'other'  => ['example.com', 'test.org', 'corp.ru'],
+        'mail' => ['mail.ru', 'inbox.ru', 'bk.ru'],
+        'other' => ['example.com', 'test.org', 'corp.ru'],
     ];
 
     private Generator $faker;
@@ -44,7 +44,7 @@ final class ClientFixtures extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        for ($i = 0; $i < self::COUNT; $i++) {
+        for ($i = 0; $i < self::COUNT; ++$i) {
             $client = new Client();
 
             $client->setFirstName($this->faker->firstName());
@@ -76,7 +76,7 @@ final class ClientFixtures extends Fixture
     {
         $provider = $this->faker->randomElement(array_keys(self::EMAIL_DOMAINS));
         $domain = $this->faker->randomElement(self::EMAIL_DOMAINS[$provider]);
-        $local = $this->faker->userName() . $this->faker->numberBetween(1, 999);
+        $local = $this->faker->userName().$this->faker->numberBetween(1, 999);
 
         return sprintf('%s@%s', $local, $domain);
     }

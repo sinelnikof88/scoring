@@ -25,14 +25,13 @@ final class ClientController extends AbstractController
 
         $pager = new Pagerfanta(new QueryAdapter($queryBuilder));
         $pager->setMaxPerPage(20);
-        $page = max(1, $request->query->getInt('page', 1));
 
-        if ($page > $pager->getNbPages() && $pager->getNbPages() > 0) {
+        $page = max(1, $request->query->getInt('page', 1));
+        $pager->setCurrentPage($page);
+
+        if ($pager->getNbPages() > 0 && $page > $pager->getNbPages()) {
             throw $this->createNotFoundException();
         }
-
-        $pager->setCurrentPage(max(1, $request->query->getInt('page', 1)));
-
 
         return $this->render('client/index.html.twig', [
             'pager' => $pager,
@@ -41,11 +40,10 @@ final class ClientController extends AbstractController
 
     #[Route('/register', name: 'client_register')]
     public function register(
-        Request                $request,
+        Request $request,
         EntityManagerInterface $em,
-        ScoringService         $scoring,
-    ): Response
-    {
+        ScoringService $scoring,
+    ): Response {
         $client = new Client();
         $form = $this->createForm(ClientRegistrationType::class, $client);
         $form->handleRequest($request);
@@ -56,7 +54,7 @@ final class ClientController extends AbstractController
             $em->persist($client);
             $em->flush();
 
-            $this->addFlash('success', 'Клиент успешно зарегистрирован. Скоринг: ' . $client->getScore());
+            $this->addFlash('success', 'Клиент успешно зарегистрирован. Скоринг: '.$client->getScore());
 
             return $this->redirectToRoute('client_index');
         }
@@ -76,12 +74,11 @@ final class ClientController extends AbstractController
 
     #[Route('/client/{id}/edit', name: 'client_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(
-        Request                $request,
-        Client                 $client,
+        Request $request,
+        Client $client,
         EntityManagerInterface $em,
-        ScoringService         $scoring,
-    ): Response
-    {
+        ScoringService $scoring,
+    ): Response {
         $form = $this->createForm(ClientRegistrationType::class, $client);
         $form->handleRequest($request);
 
@@ -90,7 +87,7 @@ final class ClientController extends AbstractController
 
             $em->flush();
 
-            $this->addFlash('success', 'Клиент обновлён. Новый скоринг: ' . $client->getScore());
+            $this->addFlash('success', 'Клиент обновлён. Новый скоринг: '.$client->getScore());
 
             return $this->redirectToRoute('client_show', ['id' => $client->getId()]);
         }

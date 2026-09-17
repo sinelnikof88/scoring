@@ -13,7 +13,6 @@ final class Phone implements ScoringRuleInterface
     private const SCORE_MTS = 3;
     private const SCORE_OTHER = 1;
 
-
     private const OPERATORS = [
         'МегаФон' => ['920', '921', '922', '923', '924', '925', '926', '927', '928', '929',
             '930', '931', '932', '933', '934', '935', '936', '937', '938', '939'],
@@ -23,19 +22,11 @@ final class Phone implements ScoringRuleInterface
             '980', '981', '982', '983', '984', '985', '986', '987', '988', '989'],
     ];
 
-    /**
-     * @return string
-     */
     public function name(): string
     {
         return 'Сотовый оператор';
     }
 
-    /**
-     * @param Client $client
-     *
-     * @return int
-     */
     public function score(Client $client): int
     {
         return match ($this->detectOperator($client->getPhone())) {
@@ -46,19 +37,14 @@ final class Phone implements ScoringRuleInterface
         };
     }
 
-    /**
-     * @param string|null $phone
-     *
-     * @return string
-     */
     public function detectOperator(?string $phone): string
     {
-        if ($phone === null || $phone === '') {
+        if (null === $phone || '' === $phone) {
             return 'Иной';
         }
 
         $digits = preg_replace('/\D/', '', $phone) ?? '';
-        if ($digits === '') {
+        if ('' === $digits) {
             return 'Иной';
         }
 

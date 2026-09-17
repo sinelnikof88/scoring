@@ -32,7 +32,7 @@ final class ProcessingConsentTest extends TestCase
     {
         $client = new Client();
 
-        if ($consent !== null) {
+        if (null !== $consent) {
             $client->setConsentGiven($consent);
         }
 

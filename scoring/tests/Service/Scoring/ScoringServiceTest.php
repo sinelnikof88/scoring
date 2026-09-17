@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Tests\Service\Scoring;
 
 use App\Entity\Client;
@@ -46,7 +48,6 @@ class ScoringServiceTest extends TestCase
             ->setConsentGiven(false); // Нет (0)
 
         $result = $this->scoringService->calculate($client);
-
 
         $this->assertSame(9, $result['total']);
         $this->assertSame(1, $result['details']['Сотовый оператор']);

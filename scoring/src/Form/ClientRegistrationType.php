@@ -55,7 +55,7 @@ final class ClientRegistrationType extends AbstractType
             ->add('education', EnumType::class, [
                 'class' => Education::class,
                 'label' => 'Образование',
-                'choice_label' => fn(Education $choice) => $choice->label(),
+                'choice_label' => fn (Education $choice) => $choice->label(),
                 'placeholder' => '— Выберите образование —',
                 'constraints' => [
                     new Assert\NotNull(message: 'Выберите уровень образования'),

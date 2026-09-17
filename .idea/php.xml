@@ -147,6 +147,18 @@
       <path value="$PROJECT_DIR$/scoring/vendor/fakerphp/faker" />
       <path value="$PROJECT_DIR$/scoring/vendor/doctrine/data-fixtures" />
       <path value="$PROJECT_DIR$/scoring/vendor/doctrine/doctrine-fixtures-bundle" />
+      <path value="$PROJECT_DIR$/scoring/vendor/react/stream" />
+      <path value="$PROJECT_DIR$/scoring/vendor/react/promise" />
+      <path value="$PROJECT_DIR$/scoring/vendor/react/socket" />
+      <path value="$PROJECT_DIR$/scoring/vendor/react/dns" />
+      <path value="$PROJECT_DIR$/scoring/vendor/react/event-loop" />
+      <path value="$PROJECT_DIR$/scoring/vendor/react/cache" />
+      <path value="$PROJECT_DIR$/scoring/vendor/react/child-process" />
+      <path value="$PROJECT_DIR$/scoring/vendor/evenement/evenement" />
+      <path value="$PROJECT_DIR$/scoring/vendor/clue/ndjson-react" />
+      <path value="$PROJECT_DIR$/scoring/vendor/ergebnis/agent-detector" />
+      <path value="$PROJECT_DIR$/scoring/vendor/friendsofphp/php-cs-fixer" />
+      <path value="$PROJECT_DIR$/scoring/vendor/fidry/cpu-core-counter" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

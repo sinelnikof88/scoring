@@ -10,17 +10,7 @@ use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 #[AutoconfigureTag('app.scoring_rule')]
 interface ScoringRuleInterface
 {
-
-    /**
-     * @param Client $client
-     *
-     * @return int
-     */
     public function score(Client $client): int;
 
-
-    /**
-     * @return string
-     */
     public function name(): string;
 }

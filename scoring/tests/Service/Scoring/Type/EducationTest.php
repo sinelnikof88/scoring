@@ -34,7 +34,7 @@ final class EducationTest extends TestCase
     {
         $client = new Client();
 
-        if ($education !== null) {
+        if (null !== $education) {
             $client->setEducation($education);
         }
 

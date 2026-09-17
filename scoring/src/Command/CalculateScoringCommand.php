@@ -16,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 /**
- * php bin/console app:scoring:calculate
+ * php bin/console app:scoring:calculate.
  */
 #[AsCommand(
     name: 'app:scoring:calculate',
@@ -25,11 +25,10 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 final class CalculateScoringCommand extends Command
 {
     public function __construct(
-        private readonly ClientRepository       $clients,
-        private readonly ScoringService         $scoring,
+        private readonly ClientRepository $clients,
+        private readonly ScoringService $scoring,
         private readonly EntityManagerInterface $em,
-    )
-    {
+    ) {
         parent::__construct();
     }
 
@@ -47,10 +46,10 @@ final class CalculateScoringCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $id = $input->getArgument('id');
 
-        if ($id !== null) {
-            $client = $this->clients->find((int)$id);
+        if (null !== $id) {
+            $client = $this->clients->find((int) $id);
 
-            if ($client === null) {
+            if (null === $client) {
                 $io->error(sprintf('Клиент с id=%d не найден.', $id));
 
                 return Command::FAILURE;
@@ -64,7 +63,7 @@ final class CalculateScoringCommand extends Command
 
         $all = $this->clients->findAll();
 
-        if ($all === []) {
+        if ([] === $all) {
             $io->warning('В базе нет клиентов.');
 
             return Command::SUCCESS;
@@ -101,7 +100,7 @@ final class CalculateScoringCommand extends Command
         foreach ($result['details'] as $rule => $score) {
             $rows[] = [$rule, sprintf('%+d', $score)];
         }
-        $rows[] = ['ИТОГО', (string)$result['total']];
+        $rows[] = ['ИТОГО', (string) $result['total']];
 
         $io->table(['Правило', 'Баллы'], $rows);
     }

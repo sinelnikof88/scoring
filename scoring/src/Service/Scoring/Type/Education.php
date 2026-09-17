@@ -13,19 +13,11 @@ final class Education implements ScoringRuleInterface
     private const SCORE_SPECIAL = 10;
     private const SCORE_SECONDARY = 5;
 
-    /**
-     * @return string
-     */
     public function name(): string
     {
         return 'Образование';
     }
 
-    /**
-     * @param Client $client
-     *
-     * @return int
-     */
     public function score(Client $client): int
     {
         return match ($client->getEducation()) {

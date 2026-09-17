@@ -13,26 +13,17 @@ final class Email implements ScoringRuleInterface
     private const SCORE_MAIL = 6;
     private const SCORE_OTHER = 3;
 
-
     private const PROVIDERS = [
         'gmail' => ['gmail.com', 'googlemail.com'],
         'yandex' => ['yandex.ru', 'ya.ru', 'yandex.com'],
         'mail' => ['mail.ru', 'inbox.ru', 'list.ru', 'bk.ru', 'internet.ru'],
     ];
 
-    /**
-     * @return string
-     */
     public function name(): string
     {
         return 'Домен э-почты';
     }
 
-    /**
-     * @param Client $client
-     *
-     * @return int
-     */
     public function score(Client $client): int
     {
         return match ($this->detectProvider($client->getEmail())) {
@@ -45,7 +36,7 @@ final class Email implements ScoringRuleInterface
 
     public function detectProvider(?string $email): string
     {
-        if ($email === null || !str_contains($email, '@')) {
+        if (null === $email || !str_contains($email, '@')) {
             return 'Иной';
         }
 
