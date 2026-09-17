@@ -7,7 +7,6 @@ namespace App\Command;
 use App\Entity\Client;
 use App\Repository\ClientRepository;
 use App\Service\Scoring\ScoringService;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -26,9 +25,9 @@ final class CalculateScoringCommand extends Command
 {
     public function __construct(
         private readonly ClientRepository $clients,
-        private readonly ScoringService $scoring,
-        private readonly EntityManagerInterface $em,
-    ) {
+        private readonly ScoringService   $scoring,
+    )
+    {
         parent::__construct();
     }
 
@@ -47,7 +46,7 @@ final class CalculateScoringCommand extends Command
         $id = $input->getArgument('id');
 
         if (null !== $id) {
-            $client = $this->clients->find((int) $id);
+            $client = $this->clients->find((int)$id);
 
             if (null === $client) {
                 $io->error(sprintf('Клиент с id=%d не найден.', $id));
@@ -56,7 +55,7 @@ final class CalculateScoringCommand extends Command
             }
 
             $this->processClient($client, $io);
-            $this->em->flush();
+            $this->clients->save($client);
 
             return Command::SUCCESS;
         }
@@ -71,9 +70,8 @@ final class CalculateScoringCommand extends Command
 
         foreach ($all as $client) {
             $this->processClient($client, $io);
+            $this->clients->save($client);
         }
-
-        $this->em->flush();
 
         $io->success(sprintf('Скоринг пересчитан для %d клиент(ов).', count($all)));
 
@@ -100,7 +98,7 @@ final class CalculateScoringCommand extends Command
         foreach ($result['details'] as $rule => $score) {
             $rows[] = [$rule, sprintf('%+d', $score)];
         }
-        $rows[] = ['ИТОГО', (string) $result['total']];
+        $rows[] = ['ИТОГО', (string)$result['total']];
 
         $io->table(['Правило', 'Баллы'], $rows);
     }
