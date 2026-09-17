@@ -1526,6 +1526,26 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     generate_final_classes?: bool|Param, // Default: true
  *     generate_final_entities?: bool|Param, // Default: false
  * }
+ * @psalm-type TwigComponentConfig = array{
+ *     defaults?: array<string, Param|string|array{ // Default: ["__deprecated__use_old_naming_behavior"]
+ *         template_directory?: scalar|Param|null, // Default: "components"
+ *         name_prefix?: scalar|Param|null, // Default: ""
+ *     }>,
+ *     anonymous_template_directory?: scalar|Param|null, // Defaults to `components`
+ *     profiler?: bool|array{ // Enables the profiler for Twig Component
+ *         enabled?: bool|Param, // Default: "%kernel.debug%"
+ *         collect_components?: bool|Param, // Collect components instances // Default: true
+ *     },
+ *     controllers_json?: scalar|Param|null, // Deprecated: The "twig_component.controllers_json" config option is deprecated, and will be removed in 3.0. // Default: null
+ * }
+ * @psalm-type BabdevPagerfantaConfig = array{
+ *     default_view?: scalar|Param|null, // Default: "default"
+ *     default_twig_template?: scalar|Param|null, // Default: "@BabDevPagerfanta/default.html.twig"
+ *     exceptions_strategy?: array{
+ *         out_of_range_page?: "to_http_not_found"|"custom"|Param, // Default: "to_http_not_found"
+ *         not_valid_current_page?: "to_http_not_found"|"custom"|Param, // Default: "to_http_not_found"
+ *     },
+ * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
  *     parameters?: ParametersConfig,
@@ -1539,6 +1559,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     twig_extra?: TwigExtraConfig,
  *     security?: SecurityConfig,
  *     monolog?: MonologConfig,
+ *     twig_component?: TwigComponentConfig,
+ *     babdev_pagerfanta?: BabdevPagerfantaConfig,
  *     "when@dev"?: array{
  *         imports?: ImportsConfig,
  *         parameters?: ParametersConfig,
@@ -1555,6 +1577,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         security?: SecurityConfig,
  *         monolog?: MonologConfig,
  *         maker?: MakerConfig,
+ *         twig_component?: TwigComponentConfig,
+ *         babdev_pagerfanta?: BabdevPagerfantaConfig,
  *     },
  *     "when@prod"?: array{
  *         imports?: ImportsConfig,
@@ -1569,6 +1593,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_extra?: TwigExtraConfig,
  *         security?: SecurityConfig,
  *         monolog?: MonologConfig,
+ *         twig_component?: TwigComponentConfig,
+ *         babdev_pagerfanta?: BabdevPagerfantaConfig,
  *     },
  *     "when@test"?: array{
  *         imports?: ImportsConfig,
@@ -1584,6 +1610,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         twig_extra?: TwigExtraConfig,
  *         security?: SecurityConfig,
  *         monolog?: MonologConfig,
+ *         twig_component?: TwigComponentConfig,
+ *         babdev_pagerfanta?: BabdevPagerfantaConfig,
  *     },
  *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
  *         imports?: ImportsConfig,

@@ -24,8 +24,15 @@ final class ClientController extends AbstractController
         $queryBuilder = $clients->createQueryBuilder('c')->orderBy('c.id', 'DESC');
 
         $pager = new Pagerfanta(new QueryAdapter($queryBuilder));
-        $pager->setMaxPerPage(2);
+        $pager->setMaxPerPage(20);
+        $page = max(1, $request->query->getInt('page', 1));
+
+        if ($page > $pager->getNbPages() && $pager->getNbPages() > 0) {
+            throw $this->createNotFoundException();
+        }
+
         $pager->setCurrentPage(max(1, $request->query->getInt('page', 1)));
+
 
         return $this->render('client/index.html.twig', [
             'pager' => $pager,

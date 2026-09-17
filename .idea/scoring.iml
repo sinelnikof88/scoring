@@ -10,9 +10,11 @@
       <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/babdev/pagerfanta-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/composer" />
       <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/doctrine/collections" />
+      <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/doctrine/data-fixtures" />
       <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/doctrine/dbal" />
       <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/doctrine/deprecations" />
       <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/doctrine/doctrine-bundle" />
+      <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/doctrine/doctrine-fixtures-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/doctrine/doctrine-migrations-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/doctrine/event-manager" />
       <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/doctrine/inflector" />
@@ -23,6 +25,7 @@
       <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/doctrine/persistence" />
       <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/doctrine/sql-formatter" />
       <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/egulias/email-validator" />
+      <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/fakerphp/faker" />
       <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/masterminds/html5" />
       <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/monolog/monolog" />
       <excludeFolder url="file://$MODULE_DIR$/scoring/vendor/myclabs/deep-copy" />
