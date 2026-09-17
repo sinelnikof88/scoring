@@ -8,7 +8,7 @@ use App\Entity\Client;
 use App\Form\ClientRegistrationType;
 use App\Repository\ClientRepository;
 use App\Service\Scoring\ScoringService;
-use Doctrine\ORM\EntityManagerInterface;
+use JetBrains\PhpStorm\NoReturn;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,21 +40,20 @@ final class ClientController extends AbstractController
 
     #[Route('/register', name: 'client_register')]
     public function register(
-        Request $request,
-        EntityManagerInterface $em,
-        ScoringService $scoring,
-    ): Response {
+        Request          $request,
+        ClientRepository $clients,
+        ScoringService   $scoring,
+    ): Response
+    {
         $client = new Client();
         $form = $this->createForm(ClientRegistrationType::class, $client);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $client->setScore($scoring->calculateTotal($client));
+            $clients->save($client);
 
-            $em->persist($client);
-            $em->flush();
-
-            $this->addFlash('success', 'Клиент успешно зарегистрирован. Скоринг: '.$client->getScore());
+            $this->addFlash('success', 'Клиент успешно зарегистрирован. Скоринг: ' . $client->getScore());
 
             return $this->redirectToRoute('client_index');
         }
@@ -74,20 +73,20 @@ final class ClientController extends AbstractController
 
     #[Route('/client/{id}/edit', name: 'client_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(
-        Request $request,
-        Client $client,
-        EntityManagerInterface $em,
-        ScoringService $scoring,
-    ): Response {
+        Request          $request,
+        Client           $client,
+        ClientRepository $clients,
+        ScoringService   $scoring,
+    ): Response
+    {
         $form = $this->createForm(ClientRegistrationType::class, $client);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $client->setScore($scoring->calculateTotal($client));
+            $clients->save($client);
 
-            $em->flush();
-
-            $this->addFlash('success', 'Клиент обновлён. Новый скоринг: '.$client->getScore());
+            $this->addFlash('success', 'Клиент обновлён. Новый скоринг: ' . $client->getScore());
 
             return $this->redirectToRoute('client_show', ['id' => $client->getId()]);
         }
@@ -96,5 +95,16 @@ final class ClientController extends AbstractController
             'form' => $form,
             'client' => $client,
         ]);
+    }
+
+    #[NoReturn] #[Route('/client/{id}/delete', name: 'client_delete', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    public function delete(
+        Client           $client,
+        ClientRepository $clients,
+    ): Response
+    {
+        $clients->delete($client);
+        $this->addFlash('success', 'Клиент удален');
+        return $this->redirectToRoute('client_index');
     }
 }

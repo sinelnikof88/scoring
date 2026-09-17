@@ -21,7 +21,7 @@
                 <th>Э-почта</th>
                 <th>Образование</th>
                 <th>Скоринг</th>
-                <th></th>
+                <th colspan="2"> Действия </th>
             </tr>
             </thead>
             <tbody>
@@ -34,6 +34,7 @@
                     <td>{{ client.education ? client.education.label() : '—' }}</td>
                     <td>{{ client.score }}</td>
                     <td><a href="{{ path('client_show', {id: client.id}) }}">Открыть</a></td>
+                    <td><a href="{{ path('client_delete', {id: client.id}) }}">Удалить</a></td>
                 </tr>
             {% endfor %}
             </tbody>
